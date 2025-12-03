@@ -1,0 +1,39 @@
+<!-- views/partials/header.ejs -->
+<header class="navbar">
+    <div class="container nav-wrapper">
+        <div class="logo">
+            <a href="/">
+                <img src="/assets/img/logo.png" alt="Carmine Visuals Africa" />
+            </a>
+        </div>
+
+        <nav class="nav-links">
+            <a href="/">Home</a>
+            <a href="/services">Services</a>
+            <a href="/gallery">Gallery</a>
+            <a href="/news">News</a>
+        </nav>
+
+        <div class="nav-actions">
+            <!-- Theme Toggle -->
+            <button id="themeToggle" class="theme-btn">
+                <span id="themeIcon">🌙</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<script>
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+
+    themeToggle.addEventListener("click", () => {
+        const currentTheme = document.documentElement.getAttribute("data-theme");
+        const newTheme = currentTheme === "light" ? "dark" : "light";
+
+        document.documentElement.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+
+        themeIcon.textContent = newTheme === "light" ? "🌙" : "☀️";
+    });
+</script>

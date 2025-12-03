@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ./partials/head %>
+  <title>Gallery | Carmine Visual Africa</title>
+</head>
+<body>
+
+  <% include ./partials/header %>
+
+  <section class="page-banner">
+    <h1>Gallery</h1>
+    <p>Moments captured through the lens across Africa.</p>
+  </section>
+
+  <section class="gallery-grid container">
+    <% if (images && images.length > 0) { %>
+      <% images.forEach(img => { %>
+        <div class="gallery-item">
+          <img src="<%= img.url %>" alt="Gallery Image">
+        </div>
+      <% }) %>
+    <% } else { %>
+      <p>No images uploaded yet.</p>
+    <% } %>
+  </section>
+
+  <% include ./partials/footer %>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<% include ../partials/head %>
+<title>Edit News | Carmine Visual Africa</title>
+</head>
+<body>
+  <% include ../partials/header %>
+
+  <main class="container">
+    <h1><%= news ? "Edit News Article" : "Create News Article" %></h1>
+
+    <form action="<%= news ? '/admin/news/' + news.id + '/update' : '/admin/news/create' %>"
+          method="POST"
+          enctype="multipart/form-data"
+          class="form">
+
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" name="title" value="<%= news ? news.title : '' %>" required>
+      </div>
+
+      <div class="form-group">
+        <label>Summary</label>
+        <textarea name="summary" rows="3"><%= news ? news.summary : '' %></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Content (HTML allowed)</label>
+        <textarea name="content" rows="10"><%= news ? news.content : '' %></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Thumbnail</label><br>
+        <% if (news && news.thumbnail) { %>
+          <img src="<%= news.thumbnail %>" class="thumb-preview">
+        <% } %>
+        <input type="file" name="thumbnail">
+      </div>
+
+      <div class="form-group">
+        <label>Tags (comma-separated)</label>
+        <input type="text" name="tags" value="<%= news ? news.tags : '' %>">
+      </div>
+
+      <button type="submit" class="btn-primary">
+        <%= news ? "Update Article" : "Publish Article" %>
+      </button>
+    </form>
+  </main>
+
+  <% include ../partials/footer %>
+</body>
+</html>

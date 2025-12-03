@@ -1,0 +1,150 @@
+<!-- views/news-view.ejs -->
+<% include ./partials/head %>
+<title><%= news.title %> | Carmine Visual Africa</title>
+</head>
+<body>
+  <% include ./partials/header %>
+  <% include ./partials/flash %>
+
+  <main class="container news-article-page">
+    <section class="page-banner">
+      <h1><%= news.title %></h1>
+      <p class="subtitle"><%= news.summary || (news.excerpt ? news.excerpt : '') %></p>
+    </section>
+
+    <div class="layout grid-2">
+      <!-- Article column -->
+      <article class="article-col">
+        <!-- Meta -->
+        <div class="article-meta">
+          <span class="author">By <strong><%= news.authorName || 'Carmine Visuals' %></strong></span>
+          <% if (news.publishedAt) { %>
+            <span class="date"> • <%= (new Date(news.publishedAt)).toLocaleDateString() %></span>
+          <% } else { %>
+            <span class="date"> • Draft</span>
+          <% } %>
+          <% if (news.location) { %>
+            <span class="location"> • <%= news.location %></span>
+          <% } %>
+        </div>
+
+        <!-- Featured image -->
+        <% if (news.thumbnail) { %>
+          <figure class="article-figure">
+            <img src="<%= news.thumbnail %>" alt="<%= news.title %>">
+            <% if (news.caption) { %>
+              <figcaption><%= news.caption %></figcaption>
+            <% } %>
+          </figure>
+        <% } %>
+
+        <!-- Podcast embed (optional) -->
+        <% if (news.isPodcast || news.podcastUrl) { %>
+          <div class="podcast-player">
+            <h4>Podcast</h4>
+            <!-- simple audio player; if external embed use iframe/podcastUrl -->
+            <audio controls src="<%= news.podcastUrl %>">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+        <% } %>
+
+        <!-- Article content (trusted HTML from editor; rendered unescaped) -->
+        <div class="article-content">
+          <%- news.content || '' %>
+        </div>
+
+        <!-- Tags -->
+        <% if (news.tags && news.tags.length) { %>
+          <div class="article-tags">
+            <strong>Tags:</strong>
+            <% news.tags.forEach((t, i) => { %>
+              <a class="tag-inline" href="/news?tag=<%= encodeURIComponent(t) %>"><%= t %></a><%= i < news.tags.length - 1 ? ',' : '' %>
+            <% }) %>
+          </div>
+        <% } %>
+
+        <!-- Social share / utilities -->
+        <div class="article-actions">
+          <a class="btn-primary" href="/news">← Back to News</a>
+
+          <!-- Simple share links -->
+          <div class="share">
+            <span>Share:</span>
+            <a href="mailto:?subject=<%= encodeURIComponent(news.title) %>&body=<%= encodeURIComponent((news.summary || '') + '\n\nRead more: ' + (request ? (request.protocol + '://' + request.get('host')) : '') + '/news/' + (news.slug || news.id)) %>" title="Share by email">Email</a>
+            <a target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=<%= encodeURIComponent(news.title + ' — ' + (request ? (request.protocol + '://' + request.get('host')) : '') + '/news/' + (news.slug || news.id)) %>" title="Share on Twitter">Twitter</a>
+            <a target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=<%= encodeURIComponent((request ? (request.protocol + '://' + request.get('host')) : '') + '/news/' + (news.slug || news.id)) %>" title="Share on Facebook">Facebook</a>
+          </div>
+        </div>
+
+        <!-- Related posts -->
+        <% if (related && related.length) { %>
+          <section class="related-posts">
+            <h4>Related Stories</h4>
+            <div class="related-grid">
+              <% related.forEach(r => { %>
+                <a class="related-card" href="/news/<%= r.slug || r.id %>">
+                  <img src="<%= r.thumbnail || '/assets/img/default-news.jpg' %>" alt="<%= r.title %>">
+                  <div class="meta">
+                    <div class="title"><%= r.title %></div>
+                    <div class="date"><%= r.publishedAt ? (new Date(r.publishedAt)).toLocaleDateString() : '' %></div>
+                  </div>
+                </a>
+              <% }) %>
+            </div>
+          </section>
+        <% } %>
+
+        <!-- Comments placeholder (integrate Disqus / custom later) -->
+        <section id="comments" class="comments-section">
+          <h4>Comments</h4>
+          <p class="muted">Comments are powered by the site admin — integrate Disqus, Facebook Comments, or a custom comment system here when ready.</p>
+        </section>
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="sidebar-col">
+        <!-- Quick info -->
+        <div class="widget card">
+          <h4>About the editorial process</h4>
+          <p>All news and podcast episodes are reviewed by our editorial team before publication to ensure accuracy, ethical storytelling and respectful representation of communities and wildlife.</p>
+        </div>
+
+        <!-- Latest posts -->
+        <div class="widget widget-latest card">
+          <h4>Latest</h4>
+          <% if (latest && latest.length) { %>
+            <ul class="latest-list">
+              <% latest.forEach(it => { %>
+                <li>
+                  <a href="/news/<%= it.slug || it.id %>">
+                    <img src="<%= it.thumbnail || '/assets/img/default-thumb.jpg' %>" alt="<%= it.title %>">
+                    <div class="meta">
+                      <div class="title"><%= it.title %></div>
+                      <div class="date"><%= it.publishedAt ? (new Date(it.publishedAt)).toLocaleDateString() : '' %></div>
+                    </div>
+                  </a>
+                </li>
+              <% }) %>
+            </ul>
+          <% } else { %>
+            <p>No recent posts.</p>
+          <% } %>
+        </div>
+
+        <!-- Subscribe -->
+        <div class="widget card">
+          <h4>Subscribe</h4>
+          <form action="/subscribe" method="POST" class="subscribe-form">
+            <input type="email" name="email" placeholder="Your email" required>
+            <button class="btn-small" type="submit">Subscribe</button>
+          </form>
+        </div>
+
+      </aside>
+    </div>
+  </main>
+
+  <% include ./partials/footer %>
+</body>
+</html>

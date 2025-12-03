@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ./partials/head %>
+  <title>News & Articles | Carmine Visual Africa</title>
+</head>
+<body>
+
+  <% include ./partials/header %>
+
+  <section class="page-banner">
+    <h1>News & Stories</h1>
+    <p>Insights, conservation updates, podcast highlights, and more.</p>
+  </section>
+
+  <section class="news-list container">
+
+    <% if (news && news.length > 0) { %>
+      <% news.forEach(item => { %>
+        <div class="news-card">
+          <img src="<%= item.thumbnail %>" alt="News Image">
+          <h2><%= item.title %></h2>
+          <p><%= item.summary %></p>
+          <a href="/news/<%= item.id %>" class="btn-primary">Read More</a>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <p>No news available at this moment.</p>
+    <% } %>
+
+  </section>
+
+  <% include ./partials/footer %>
+</body>
+</html>

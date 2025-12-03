@@ -1,0 +1,69 @@
+/* Main site styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: #c0392b; /* Carmine red */
+}
+
+header, footer {
+  background-color: #1b1b1b;
+  color: #fff;
+  padding: 20px;
+}
+
+header a, footer a {
+  color: #fff;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.page-banner {
+  background: #c0392b;
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.page-banner h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #c0392b;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #e74c3c;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 0.9rem;
+}

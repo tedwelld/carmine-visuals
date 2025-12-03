@@ -1,0 +1,31 @@
+<% include ../partials/head %>
+<title>Dashboard | Carmine Visual Africa</title>
+</head>
+<body>
+  <% include ../partials/header %>
+
+  <main class="admin-dashboard container">
+    <h1>Admin Dashboard</h1>
+    <p>Welcome, <%= user.name %>!</p>
+
+    <div class="dashboard-grid">
+      <a href="/admin/news" class="dash-card">
+        <h3>Manage News</h3>
+        <p>Create, edit, update blog posts & podcast articles.</p>
+      </a>
+
+      <a href="/admin/gallery" class="dash-card">
+        <h3>Manage Gallery</h3>
+        <p>Upload and organise wildlife images.</p>
+      </a>
+
+      <a href="/admin/settings" class="dash-card">
+        <h3>Site Settings</h3>
+        <p>Update system configuration.</p>
+      </a>
+    </div>
+  </main>
+
+  <% include ../partials/footer %>
+</body>
+</html>

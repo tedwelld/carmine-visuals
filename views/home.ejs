@@ -1,0 +1,95 @@
+<!-- views/home.ejs -->
+<%- include('partials/head', { title: "Home | Carmine Visual Africa" }) %>
+
+<body>
+  <%- include('partials/header') %>
+  <%- include('partials/flash') %>
+
+  <!-- Welcome Popup -->
+  <div id="welcome-popup" class="welcome-popup">
+    <div class="popup-content">
+      <h2>Welcome to Carmine Visual Africa</h2>
+      <p>We capture the heart of Africa through storytelling, photography, film, and community voices.</p>
+      <button class="close-popup" onclick="document.getElementById('welcome-popup').style.display='none'">Continue</button>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Carmine Visual Africa</h1>
+      <p>Visual stories inspired by wildlife, culture, people, and conservation.</p>
+      <a href="/services" class="btn-primary">Explore Our Work</a>
+    </div>
+  </section>
+
+  <!-- Vision, Mission, Values -->
+  <section class="vmv container">
+    <div class="vmv-item">
+      <h2>Our Vision</h2>
+      <p><%= vision || "Our vision description is coming soon." %></p>
+    </div>
+    <div class="vmv-item">
+      <h2>Our Mission</h2>
+      <p><%= mission || "Our mission description is coming soon." %></p>
+    </div>
+    <div class="vmv-item">
+      <h2>Core Values</h2>
+      <ul>
+        <% if (coreValues && coreValues.length > 0) { %>
+          <% coreValues.forEach(value => { %>
+            <li><%= value %></li>
+          <% }) %>
+        <% } else { %>
+          <li>Integrity</li>
+          <li>Professionalism</li>
+          <li>Community</li>
+        <% } %>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Latest News -->
+  <section class="latest-news container">
+    <h2>Latest News</h2>
+
+    <% if (latestNews && latestNews.length > 0) { %>
+      <div class="news-list">
+        <% latestNews.forEach(news => { %>
+          <div class="news-card">
+            <img src="<%= news.image || '/assets/img/default-news.png' %>" alt="news image">
+            <h3><%= news.title %></h3>
+            <p><%= news.content %></p>
+            <a href="/news/<%= news.id %>" class="btn-secondary">Read More</a>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <p>No news available at the moment.</p>
+    <% } %>
+
+    <div class="center">
+      <a href="/news" class="btn-primary">View All News</a>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services container">
+    <h2>Our Services</h2>
+    <% if (services && services.length > 0) { %>
+      <div class="service-list">
+        <% services.forEach(service => { %>
+          <div class="service-card">
+            <h3><%= service.name %></h3>
+            <p><%= service.description %></p>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <p>Our services will be listed soon.</p>
+    <% } %>
+  </section>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

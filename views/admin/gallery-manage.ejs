@@ -1,0 +1,34 @@
+<% include ../partials/head %>
+<title>Gallery Manager | Carmine Visual Africa</title>
+</head>
+<body>
+  <% include ../partials/header %>
+
+  <main class="container gallery-admin">
+    <h1>Gallery Manager</h1>
+
+    <!-- Upload form -->
+    <form action="/admin/gallery/upload" method="POST" enctype="multipart/form-data" class="upload-section">
+      <label>Select Image</label>
+      <input type="file" name="image" required>
+      <button type="submit" class="btn-primary">Upload</button>
+    </form>
+
+    <hr>
+
+    <!-- Gallery -->
+    <div class="gallery-grid">
+      <% images.forEach(img => { %>
+        <div class="gallery-card">
+          <img src="<%= img.url %>" alt="">
+          <form action="/admin/gallery/<%= img.id %>/delete" method="POST">
+            <button class="btn-danger sm" type="submit">Delete</button>
+          </form>
+        </div>
+      <% }) %>
+    </div>
+  </main>
+
+  <% include ../partials/footer %>
+</body>
+</html>
